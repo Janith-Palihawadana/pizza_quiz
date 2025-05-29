@@ -1,0 +1,53 @@
+<?php
+
+// s - 10 - 15$
+// m - 20 - 25$
+// l - 30 - 35$
+// m - 50 - 50$
+
+$people_count = 10;
+$per_person_eat = 3;
+
+$combo_pack =[];
+$total_slices = $people_count*$per_person_eat;
+
+echo "How many slices they need : $total_slices\n ";
+
+$max_slices = round($total_slices/10);
+
+for($xl = 0 ; $xl <=$max_slices ; $xl++ ){
+    for($l = 0 ; $l <=$max_slices ; $l ++){
+         for($m = 0 ; $m <=$max_slices ; $m ++){
+              for($s = 0 ; $s <=$max_slices ; $s ++){
+                  
+                  $slices = $s*10 + $m*20 +$l*30 + $xl*50;
+                  
+                  if($slices-$total_slices >=0 ){
+                        $total_price =$s*15 + $m*25 +$l*35 + $xl*50;
+                        
+                        $combo_pack [] =[
+                            'price'=> $total_price,
+                            'Sizes' =>[
+                                's'=>$s,
+                                'm'=>$m,
+                                'l'=>$l,
+                                'xl'=>$xl
+                                ] 
+                            ];
+                  }
+              }
+         }
+    }
+}
+
+
+// Sort prices array by price ascending
+usort($combo_pack, function ($a, $b) {
+    return $a['price'] - $b['price'];
+});
+
+// Print result
+print_r($combo_pack[0]);
+
+
+?>
